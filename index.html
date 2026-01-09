@@ -226,13 +226,13 @@
         /* Specific Spots for Each Sticker ID */
         /* Left Column */
         .spot-0 { top: 15%; left: 20px; transform: rotate(-10deg); } /* Doodle S */
-        .spot-2 { top: 40%; left: 20px; transform: rotate(5deg); }   /* Giraffe */
-        .spot-4 { top: 65%; left: 20px; transform: rotate(-5deg); }  /* Auryn */
+        .spot-2 { top: 40%; left: 20px; transform: rotate(5deg); }    /* Giraffe */
+        .spot-4 { top: 65%; left: 20px; transform: rotate(-5deg); }   /* Auryn */
 
         /* Right Column */
         .spot-1 { top: 15%; right: 20px; transform: rotate(10deg); } /* Scorpion */
         .spot-3 { top: 40%; right: 20px; transform: rotate(-5deg); } /* Round Bee */
-        .spot-5 { top: 65%; right: 20px; transform: rotate(8deg); }  /* Nessie */
+        .spot-5 { top: 65%; right: 20px; transform: rotate(8deg); }   /* Nessie */
 
         /* Hide stickers on small screens (Mobile) */
         @media (max-width: 950px) {
@@ -564,6 +564,7 @@
     }
 
     function showHint() {
+        if (currentRow === 0) { showMsg("Guess once for hint!"); return; }
         if (gameOver) return;
         let type = "";
         if (BEARS.includes(rawTargetWord)) type = "🐻 Bear";
