@@ -234,6 +234,43 @@
         .spot-3 { top: 40%; right: 20px; transform: rotate(-5deg); } /* Round Bee */
         .spot-5 { top: 65%; right: 20px; transform: rotate(8deg); }   /* Nessie */
 
+        /* WIKI / LIST STYLES */
+        .wiki-content {
+            text-align: left;
+            margin-top: 15px;
+            padding-right: 5px;
+        }
+        .wiki-section {
+            margin-bottom: 25px;
+        }
+        .wiki-section h3 {
+            border-bottom: 3px solid var(--header-bg);
+            padding-bottom: 5px;
+            margin-bottom: 12px;
+            color: var(--text);
+            font-size: 1.1rem;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .wiki-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 8px;
+        }
+        .wiki-item {
+            background: rgba(0,0,0,0.06);
+            padding: 6px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--text);
+            transition: background 0.2s;
+        }
+        .wiki-item:hover { background: rgba(0,0,0,0.12); }
+        
+        body.theme-dark .wiki-item { background: #2a2a2c; color: #ddd; }
+        body.theme-dark .wiki-item:hover { background: #3a3a3c; }
+
         /* Hide stickers on small screens (Mobile) */
         @media (max-width: 950px) {
             .sticker-layer { display: none; }
@@ -252,6 +289,7 @@
         <button class="icon-btn" onclick="toggleBadgeMenu()" title="Badges">🏅</button>
         <button class="icon-btn" onclick="toggleThemeMenu()" title="Themes">🎨</button>
         <button class="icon-btn" onclick="showHint()" title="Hint">💡</button>
+        <button class="icon-btn" onclick="toggleWikiMenu()" title="Word List">📖</button>
         <button class="icon-btn" onclick="toggleStats()" title="Statistics">📊</button>
     </div>
 </header>
@@ -340,6 +378,14 @@
         <h2 style="margin-top:0">Bee Shop</h2>
         <div class="shop-container" id="shop-items-container"></div>
         <button class="btn-primary" onclick="toggleShopMenu()">CLOSE</button>
+    </div>
+</div>
+
+<div id="wiki-overlay" class="overlay">
+    <div class="modal" style="max-width: 500px; max-height: 85vh;">
+        <h2 style="margin-top:0">Possible Words</h2>
+        <div class="wiki-content" id="wiki-container"></div>
+        <button class="btn-primary" onclick="toggleWikiMenu()">CLOSE</button>
     </div>
 </div>
 
@@ -471,6 +517,13 @@
         if (isOpening) renderBadges();
     }
 
+    function toggleWikiMenu() {
+        const menu = document.getElementById('wiki-overlay');
+        const isOpening = menu.style.display !== 'flex';
+        menu.style.display = isOpening ? 'flex' : 'none';
+        if (isOpening) renderWiki();
+    }
+
     function toggleStats() {
         // Just show stats without the game over context
         document.getElementById('modal-status').textContent = "STATISTICS";
@@ -505,6 +558,29 @@
             `;
             container.appendChild(card);
         });
+    }
+
+    function renderWiki() {
+        const container = document.getElementById('wiki-container');
+        container.innerHTML = '';
+
+        const createSection = (title, icon, list) => {
+            const section = document.createElement('div');
+            section.className = 'wiki-section';
+            
+            let gridHtml = list.map(word => `<div class="wiki-item">${word}</div>`).join('');
+            
+            section.innerHTML = `
+                <h3>${icon} ${title}</h3>
+                <div class="wiki-grid">${gridHtml}</div>
+            `;
+            container.appendChild(section);
+        };
+
+        createSection('Bees', '🐝', BEES);
+        createSection('Bears', '🐻', BEARS);
+        createSection('Fields', '🌱', FIELDS);
+        createSection('Tools', '🛠️', TOOLS);
     }
 
     function buyItem(id, cost) {
