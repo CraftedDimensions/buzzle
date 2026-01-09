@@ -394,8 +394,9 @@
     const BEARS = ["Black Bear", "Mother Bear", "Brown Bear", "Panda Bear", "Science Bear", "Dapper Bear", "Polar Bear", "Robo Bear", "Spirit Bear", "Bee Bear", "Gummy Bear", "Sun Bear", "Tunnel Bear", "Shadow Bear", "Snowbear"];
     const FIELDS = ["Sunflower", "Dandelion", "Mushroom", "Blue Flower", "Clover", "Strawberry", "Spider", "Bamboo", "Pineapple", "Stump", "Cactus", "Pumpkin", "Pine Tree", "Rose", "Hub", "Mountain Top", "Pepper", "Coconut", "Ant", "Mixed Brick", "Blue Brick", "Red Brick", "White Brick"];
     const TOOLS = ["Scooper", "Rake", "Clippers", "Magnet", "Vacuum", "Super-Scooper", "Pulsar", "Electro-Magnet", "Scissors", "Honey Dipper", "Bubble Wand", "Scythe", "Sticker-Seeker", "Golden Rake", "Spark Staff", "Porcelain Dipper", "Petal Wand", "Tide Popper", "Dark Scythe", "Gummyballer"];
+    const BAGS = ["Pouch", "Jar", "Backpack", "Canister", "Mega-Jug", "Compressor", "Elite Barrel", "Port-O-Hive", "Coconut Canister", "Blue Port-O-Hive", "Red Port-O-Hive", "Porcelain Port-O-Hive"];
 
-    const WORD_LIST = [...BEES, ...BEARS, ...FIELDS, ...TOOLS];
+    const WORD_LIST = [...BEES, ...BEARS, ...FIELDS, ...TOOLS, ...BAGS];
     const CLEAN_LIST = WORD_LIST.map(w => w.replace(/-|\s/g, '').toUpperCase());
 
     // SHOP ITEMS (Added 3 more + Theme)
@@ -581,6 +582,7 @@
         createSection('Bears', '🐻', BEARS);
         createSection('Fields', '🌱', FIELDS);
         createSection('Tools', '🛠️', TOOLS);
+        createSection('Bags', '🎒', BAGS);
     }
 
     function buyItem(id, cost) {
@@ -646,6 +648,7 @@
         if (BEARS.includes(rawTargetWord)) type = "🐻 Bear";
         else if (FIELDS.includes(rawTargetWord)) type = "🌱 Field";
         else if (TOOLS.includes(rawTargetWord)) type = "🛠️ Tool";
+        else if (BAGS.includes(rawTargetWord)) type = "🎒 Bag";
         else type = "🐝 Bee";
         
         const firstLetter = targetWord[0];
